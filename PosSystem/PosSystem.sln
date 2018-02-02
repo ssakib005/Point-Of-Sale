@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PosSystem", "PosSystem\PosSystem.csproj", "{BFA5ED05-CAF4-48EE-80C4-CA2EA82363E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFA5ED05-CAF4-48EE-80C4-CA2EA82363E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFA5ED05-CAF4-48EE-80C4-CA2EA82363E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFA5ED05-CAF4-48EE-80C4-CA2EA82363E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFA5ED05-CAF4-48EE-80C4-CA2EA82363E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D140452-A5BB-4FE1-AF8A-351B293060E7}
+	EndGlobalSection
+EndGlobal

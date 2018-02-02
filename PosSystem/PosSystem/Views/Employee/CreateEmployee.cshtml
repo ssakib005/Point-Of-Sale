@@ -1,0 +1,152 @@
+﻿@model PosSystem.Models.Setup.Employee
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/CustomCSS/CustomEmployee.css" rel="stylesheet" />
+
+<div style="background-color: black; min-height: 65vh;">
+
+    @using (Html.BeginForm("CreateEmployee", "Employee", FormMethod.Post, new { onsubmit = "return SubmitForm(this)", enctype = "multipart/form-data", id = "subForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        @Html.HiddenFor(m => m.Id)
+        <ul id="tab" class="tab">
+            <li class="tab-switcher" data-tab-index="0"><a id="Official">Official</a></li>
+            <li class="tab-switcher" data-tab-index="1"><a id="Personal">Perosnal</a></li>
+        </ul>
+        <div id="allTabsContainer">
+            <div class="tab-container" data-tab-index="0" id="officialfrm">
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Name, "Name", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Code, "Code", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Code, null, new { @class = "form-control" })
+                    </div>
+                </div>
+                @*DropDown For Outlet Start*@
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.BranchId, "Outlet", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        <select class="form-control" name="BranchId" id="loadBranch">
+                            <option value="">------------------------Select------------------------</option>
+                        </select>
+                    </div>
+                </div>
+                @*DropDown For Outlet end*@
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.JoiningDate, "Joining Date", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        <input type="date" id="JoiningDate" name="JoiningDate" />
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Image, "Image", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        <input type='file' onchange="readURL(this);" id="img" name="img" />
+                        <img src="#" id="pic" alt="your image" />
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.ContactNo, "Phone ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.ContactNo, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Email, "Email", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Email, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <hr />
+                @*Dropdown start*@
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.EmployeesId, "Reference", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        <select class="form-control" name="EmployeesId" id="loadEmployee">
+                            <option value="">------------------------Select------------------------</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-container" data-tab-index="1" id="personalfrm" style="display: none;">
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.EmergencyContactNo, "Emargency Contact", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.EmergencyContactNo, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Nid, "NID ", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Nid, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.FatherName, "Father Name", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.FatherName, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.MotherName, "Mother Name", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.MotherName, null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.PresentAddress, "Present Address", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(m => m.PresentAddress, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.PermanentAddress, "Permanent Address", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(m => m.PermanentAddress, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group" style="margin-left: 30px">
+
+            <input type="button" value="Save" class="btn btn-success" onclick="formSave()" />
+            <input type="reset" value="Cancel" class="btn btn-danger" id="reset" onclick="reset()" />
+        </div>
+        <hr />
+    }
+
+</div>
+<script src="~/Scripts/CuScripts/Employee/EmployeeForm.js"></script>
+

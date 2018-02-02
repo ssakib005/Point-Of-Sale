@@ -1,0 +1,82 @@
+﻿@model PosSystem.Models.Report.ExpenseReport
+@{
+    ViewBag.Title = "Expense Report";
+}
+<div class="panel" style="background-color: #0d222b">
+    
+    <div class="panel-body" style="margin-left: 10px">
+        <div class="panel" style="background-color: #0d222b">
+            <div class="panel-body" style="margin-left: 10px">
+                <div class="row" style="margin-left: 5px;">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.BranchId, "Branch Name*", new { @class = "control-label col-md-4" })
+                                <div class="col-md-4">
+                                    <select id="loadBranch" name="BranchId" class="form-control" required="">
+                                        <option value="">----------------------------select-------------------------</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.ExpenseCode, "Expense Code", new { @class = "control-label col-md-4" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(m => m.ExpenseCode, null, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.FromDate, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <input type="date" id="fromDate" name="FromDate" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.ToDate, new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <input type="date" id="toDate" name="ToDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-md-offset-11 col-md-2">
+                <input type="button" class="btn btn-success" id="showbtn" name="showbtn" value="Show" />
+            </div>
+        </div>
+        <br />
+        <div class="panel">
+            <div class="panel-heading row" style="background-color: #bfbfbf">
+                <div class="panel-title col-md-6" style="font-weight: bold; font-size: 20Px; color: black">Expense Report</div>
+            </div>
+            <div class="panel-body" style="min-height: 40px; background-color: #323538">
+                <table id="purchaseReportDataTable" class="table table-striped table-responsive table-hover" style="background-color: burlywood; width: 100%; color: black">
+                    <thead>
+                        <tr>
+                            <th style="color: black; margin: 5px;">Sl</th>
+                            <th style="color: black; margin: 5px;">Date</th>
+                            <th style="color: black; margin: 5px;">Description</th>
+                            <th style="color: black; margin: 5px;">Outlet</th>
+                            <th style="color: black; margin: 5px;">Total Expense</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="col-md-offset-11 col-md-2">
+                    <input type="button" class="btn btn-success " name="PrintBtn" id="printbtn" value="Print" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/CuScripts/ReportExpense/ReportExpense.js"></script>
+}

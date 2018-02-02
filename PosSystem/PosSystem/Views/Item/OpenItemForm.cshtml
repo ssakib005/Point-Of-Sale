@@ -1,0 +1,92 @@
+﻿
+@model PosSystem.Models.Setup.Item
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div style="background-color: black; min-height: 65vh;" id="popUpItem">  
+
+    @using (Html.BeginForm("OpenItemForm", "Item", FormMethod.Post, new {enctype = "multipart/form-data", id = "subForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group row" style="margin-left: 15px;" id="category">
+            @Html.LabelFor(m => m.CategoryId, "Category", new {@class = "control-label col-md-3"})
+        <div class="col-md-6">
+            <select class="form-control" name="CategoryId" id="loadCategory">
+                
+                @if (Model == null)
+                {
+                    <option value="">------------------------Select------------------------</option>
+                }
+                else
+                {
+                    <option value="@Model.CategoryId">@Model.CatName</option>
+                }
+            </select>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Name, "Name", new {@class = "control-label col-md-3"})
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Name, null, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Code, "Code", new {@class = "control-label col-md-3"})
+            <div class="col-md-2">
+                @*<input type="text" name="CategoryCode" id="CategoryCode" value="" class="form-control"/>*@
+                @Html.TextBoxFor(m => m.CtCode, null, new {@class = "form-control"})
+            </div>
+            <div class="col-md-3">
+                @*<input type="text" name="ItemCode" value="" id="ItemCode" class="form-control" />*@
+                @Html.TextBoxFor(m => m.ItCode, null, new {@class = "form-control"})
+            </div>
+        </div>
+        @Html.TextBoxFor(m => m.Code, null, new {@class = "form-control", type = "hidden"})
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.CostPrice, "Cost Price", new {@class = "control-label col-md-3"})
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.CostPrice, null, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.SellPrice, "Sale Price", new {@class = "control-label col-md-3"})
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.SellPrice, null, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Description, "Description", new {@class = "control-label col-md-3"})
+            <div class="col-md-6">
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+                    @Html.LabelFor(m => m.Image, "Image", new { @class = "control-label col-md-3" })
+                    <div class="col-md-6">
+                        <input type='file' onchange="readURL(this);" id="img" name="img" />
+                        <img src="#" id="pic" alt="your image" />
+                    </div>
+                </div>
+          
+      <hr />
+        <div class="form-group" style="margin-left: 30px">
+            <input type="button" value="Save" class="btn btn-success" onclick="formSave()"/>
+            <input type="reset" value="Cancel" class="btn btn-danger" id="reset" onclick="reset()"/>
+        </div>
+        <hr />
+    }
+
+</div>
+<script src="~/Scripts/CuScripts/Item/ItemForm.js"></script>
+
+
+
+

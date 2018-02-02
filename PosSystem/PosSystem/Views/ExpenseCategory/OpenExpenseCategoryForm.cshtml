@@ -1,0 +1,81 @@
+﻿
+@model PosSystem.Models.Setup.ExpenseCategory
+@{
+    Layout = null;
+}
+
+
+<div style="background-color: black; min-height: 65vh;" id="popUpExpenseCategory">
+
+    @using (Html.BeginForm("OpenExpenseCategoryForm", "ExpenseCategory", FormMethod.Post, new { onsubmit = "return SubmitCategoryForm(this)", enctype = "multipart/form-data", id = "subForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group row" style="margin-left: 20px">
+            <div class="col-md-3">
+                <div class="row">
+                    @Html.RadioButtonFor(m => m.Category, "Root", new { @class = "col-md-1 col-md-offset-1", @checked = "checked", onclick = "Root()", id = "r" })
+                    @Html.LabelFor(m => m.Category, "Root Category", new { @class = "control-label col-md-10" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    @Html.RadioButtonFor(m => m.Category, "Child", new { @class = "col-md-offset-1 col-md-1", onclick = "Child()", id = "c" })
+                    @Html.LabelFor(m => m.Category, "Child Category", new { @class = "control-label col-md-10" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-left: 15px;" id="rootCategory">
+
+            @Html.LabelFor(m => m.ExpenseRootId, "Parent Category", new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                <select class="form-control" name="ExpenseRootId" id="loadExpenseCategory">
+                    <option value="">------------------------Select------------------------</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Name, "Name", new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Code, "Code", new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Code, null, new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group row" style="margin-left: 15px">
+            @Html.LabelFor(m => m.Description, "Description", new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style="overflow: hidden"})
+
+            </div>
+        </div>
+
+        <hr />
+        <div class="form-group" style="margin-left: 30px">
+            <input type="button" value="Save" class="btn btn-success" onclick="formSave()" />
+            <input type="reset" value="Cancel" class="btn btn-danger" id="reset" onclick="reset()" />
+        </div>
+        <hr />
+    }
+
+</div>
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/CuScripts/ExpenseCategory/ExpenseCatForm.js"></script>
+
+
+
+
+

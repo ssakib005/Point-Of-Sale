@@ -1,0 +1,106 @@
+﻿@model PosSystem.Models.Report.IncomeReport
+@{
+    ViewBag.Title = "Income Report";
+}
+<div class="panel" style="background-color: #0d222b">
+    <div class="panel-body" style="margin-left: 10px">
+        <div class="panel">
+            <div class="panel-body" style="min-height: 40px; background-color: #323538">
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BranchId, "Branch Name*", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <select id="loadBranch" name="BranchId" class="form-control" required="">
+                            <option value="">---------select---------</option>
+                        </select>
+                    </div>
+                    @Html.LabelFor(m => m.FromDate, new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <input type="date" id="fromDate" name="FromDate" />
+                    </div>
+                    @Html.LabelFor(m => m.ToDate, new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        <input type="date" id="toDate" name="ToDate" />
+                    </div>
+                </div>
+                <div class="col-md-offset-11 col-md-2">
+                    <input type="button" class="btn btn-success " name="Show" id="showbtn" value="Show" />
+                </div>
+                </div>
+        </div>
+    </div>
+        <br />
+    @*Table Pannel*@
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <div class="panel">
+                <div class="panel-heading row" style="background-color: #bfbfbf">
+                    <div class="panel-title col-md-6" style="font-weight: bold; font-size: 20Px; color: black">Purchase Report</div>
+                </div>
+                <div class="panel-body" style="min-height: 40px; background-color: #323538">
+                    <table id="purchaseDetailsDataTable" class="table table-striped table-responsive table-hover" style="background-color: burlywood; width: 100%; color: black">
+                        <thead>
+                            <tr>
+                                <th style="color: black; margin: 5px;">Sl</th>
+                                <th style="color: black; margin: 5px;">Date</th>
+                                <th style="color: black; margin: 5px;">Description</th>
+                                <th style="color: black; margin: 5px;">Purchase Ammount</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                </div>
+            </div>            
+
+        </div>
+        <div class="col-md-5">
+            <div class="panel">
+                <div class="panel-heading row" style="background-color: #bfbfbf">
+                    <div class="panel-title col-md-6" style="font-weight: bold; font-size: 20Px; color: black">Sales Report</div>
+                </div>
+                <div class="panel-body" style="min-height: 40px; background-color: #323538">
+                    <table id="salesDetailsDataTable" class="table table-striped table-responsive table-hover" style="background-color: burlywood; width: 100%; color: black">
+                        <thead>
+                        <tr>
+                            <th style="color: black; margin: 5px;">Sl</th>
+                            <th style="color: black; margin: 5px;">Date</th>
+                            <th style="color: black; margin: 5px;">Description</th>
+                            <th style="color: black; margin: 5px;">Sales Ammount</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    
+                </div>
+            </div>                 
+            
+
+        </div>
+    </div>
+    <div class="panel">
+            <div class="panel-heading row" style="background-color: #bfbfbf">
+                <div class="panel-title col-md-6" style="font-weight: bold; font-size: 20Px; color: black">Summury</div>
+            </div>
+            <div class="panel-body" style="min-height: 40px; background-color: #323538">
+                <table id="purchaseReportDataTable" class="table table-striped table-responsive table-hover" style="background-color: burlywood; width: 100%; color: black">
+                    <thead>
+                        <tr>
+                            <th style="color: black; margin: 5px;">Sl</th>
+                            <th style="color: black; margin: 5px;">Total Purchase</th>
+                            <th style="color: black; margin: 5px;">Total Sale</th>
+                            <th style="color: black; margin: 5px;">TOtal Income</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="col-md-offset-11 col-md-2">
+                    <input type="button" class="btn btn-success " name="PrintBtn" id="printbtn" value="Print" />
+                </div>
+            </div>
+        </div>
+</div>
+
+
+@section scripts
+{
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/CuScripts/ReportPurchase/ReportPurchase.js"></script>
+}

@@ -1,0 +1,38 @@
+﻿body {
+    font-family: Arial;
+}
+
+/* Style the tab */
+ul.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    /* Style the buttons inside the tab */
+    .tab li {
+      
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+        Color: white;
+    }
+
+        /* Change background color of buttons on hover */
+     li.tab-switcher:hover 
+     {
+        background-color: cornflowerblue;
+     }
+
+        /* Create an active/current tablink class */
+     /*li.tab-switcher li.active 
+     {
+         background-color: blue;
+     }*/
+     .tab-switcher.active{
+         background-color: burlywood;
+     }

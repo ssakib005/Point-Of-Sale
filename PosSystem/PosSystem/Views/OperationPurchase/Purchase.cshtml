@@ -1,0 +1,305 @@
+﻿@model PosSystem.Models.Operation.Purchase.OperationPurchase
+@{
+    ViewBag.Title = "Purchase";
+}
+
+@if (Model == null)
+{
+
+using (Html.BeginForm())
+ {
+     @Html.AntiForgeryToken()
+
+     if (Model == null)
+     {
+         <input type="hidden" value="" id="purchaseId"/>
+     }
+     else
+     {
+         <input type="hidden" value="@Model.Id" id="purchaseId"/>
+     }
+     @Html.TextBoxFor(m => m.PurchaseCode, null, new {@class = "form-control", type = "hidden"})
+     <div class="row" id="purchaseEntryForm">
+     <div class="panel" style="background-color: #0d222b">
+         <div class="panel-heading" style="background-color: #4c493d">
+             <div class="panel-title" style="color: white; padding: 6px;">
+                 <b>Select Branch</b>
+                 <a class="btn btn-success col-md-offset-9" onclick="loadThisPage()" style="background-color: #042d15">Add New</a>
+             </div>
+         </div>
+         <div class="panel-body" style="margin-left: 50px">
+
+             <div class="col-md-6">
+                 <div class="form-group row">
+                     @Html.LabelFor(m => m.Branch, "Branch Name*", new {@class = "control-label col-md-3"})
+                     <div class="col-md-6">
+                         <select id="branchSelectForPurchase" name="Branch" class="form-control" required="">
+                             @if (Model == null)
+                             {
+                                 <option value="">-------Select-------</option>
+                             }
+                             else
+                             {
+                                 <option value="">@Model.Branch</option>
+                             }
+
+                         </select>
+                     </div>
+                 </div>
+                 <div class="form-group row">
+                     @Html.LabelFor(m => m.Employee, "Employee*", new {@class = "control-label col-md-3"})
+                     <div class="col-md-6">
+                         <select id="employeeSelectForPurchase" name="Employee" class="form-control" required="">
+                             @if (Model == null)
+                             {
+                                 <option value="">-------Select-------</option>
+                             }
+                             else
+                             {
+                                 <option value="">@Model.Employee</option>
+                             }
+                         </select>
+
+                     </div>
+                 </div>
+                 <div class="form-group row">
+                     @Html.LabelFor(m => m.Supplier, "Supplier*", new {@class = "control-label col-md-3"})
+                     <div class="col-md-6">
+                         <select id="supplierSelectForPurchase" name="Supplier" class="form-control" required="">
+                             @if (Model == null)
+                             {
+                                 <option value="">-------Select-------</option>
+                             }
+                             else
+                             {
+                                 <option value="">@Model.Supplier</option>
+                             }
+                         </select>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group row">
+                     @Html.LabelFor(m => m.DateTime, "Purchase Date*", new {@class = "control-label col-md-3"})
+                     <div class="col-md-6">
+                         @Html.TextBoxFor(m => m.DateTime, null, new {@class = "form-control"})
+                     </div>
+                 </div>
+                 <div class="form-group row">
+                     @Html.LabelFor(m => m.Remarkes, "Remarks*", new {@class = "control-label col-md-3"})
+                     <div class="col-md-6">
+                         @Html.TextAreaFor(m => m.Remarkes, new {@class = "form-control", required = "", style = "overflow: hidden", rows = 3})
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div class="row">
+         <div class="col-md-5">
+             <div class="row">
+                 <div class="panel" style="background-color: #0d222b">
+                     <div class="panel-heading" style="background-color: #4c493d">
+                         <div class="panel-title" style="color: white; padding: 10px;">
+                             <b>Select Item</b>
+                         </div>
+                     </div>
+                     <div class="panel-body" style="margin-left: 10px">
+                         <div class="col-md-6">
+                             <div class="row" style="margin-left: 5px;">
+                                 <input type="hidden" value="" id="itemUpdate"/>
+                                 <div class="form-group row">
+                                     @Html.Label("ItemName", "Item*", new {@class = "control-label col-md-4"})
+                                     <div class="col-md-8">
+                                         <select id="loadPurchaseItem" class="form-control">
+                                             <option value="">----------Select------------</option>
+                                         </select>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="row" style="margin-left: 5px;">
+                                 <div class="form-group row">
+                                     @Html.Label("Quantity", "Quantity*", new {@class = "control-label col-md-4"})
+                                     <div class="col-md-8">
+                                         @Html.TextBox("Quantity", 1, new {@class = "form-control"})
+                                     </div>
+                                 </div>
+                                 <div class="form-group row">
+                                     @Html.Label("Amount", "Price*", new {@class = "control-label col-md-4"})
+                                     <div class="col-md-8">
+                                         @Html.TextBox("Amount", 0, new {@class = "form-control"})
+                                     </div>
+                                 </div>
+                                 <div class="form-group row">
+                                     <div class="col-md-offset-4 col-sm-offset-4">
+                                         <div class="row" id="updateItem">
+                                             <a class="btn btn-success" style="margin-left: 30px; background-color: #292729" onclick="PurchaseItemUpdate($('#itemUpdate').val())"><i class="fa fa-pencil-square-o"></i></a>
+                                         </div>
+                                         <div class="row" id="addItem">
+                                             <a class="btn btn-success" style="margin-left: 30px; background-color: #292729" onclick="PurchaseItemAdded()"><i class="fa fa-plus"></i></a>
+                                             <a class="btn btn-danger" style="margin-left: 5px; background-color: #290a04" onclick="TextBoxClear()"><i class="fa fa-trash"></i></a>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="panel-footer" style="margin: 10px; margin-bottom: 0; margin-right: 0; background-color: #939494">
+                         <div class="row">
+                             <div class="col-md-8" id="expenseSummery">
+                                 <div class="row form-group" style="padding-top: 15px">
+
+                                     @Html.Label("", "Total Amount:", new {@class = "col-md-4 control-label", style = "color: black;"})
+                                     <div class="col-md-6">
+
+                                         @if (Model == null)
+
+                                         {
+                                             <input type="text" id="totalAmount" name="TotalAmount" value="0" class="form-control" readonly="" style="border: none"/>
+                                         }
+                                         else
+                                         {
+                                             <input type="text" id="totalAmount" name="TotalAmount" value="@Model.TotalAmount" class="form-control" readonly="" style="border: none"/>
+                                         }
+
+                                     </div>
+                                 </div>
+                                 <div class="row form-group">
+                                     @Html.Label("", "Paid: ", new {@class = "col-md-4 control-label", style = "color: black;"})
+                                     <div class="col-md-6">
+
+                                         @if (Model == null)
+                                         {
+                                             <input type="text" id="totalPaidAmount" name="PaidAmount" value="0" class="form-control" style="border: none"/>
+                                         }
+                                         else
+                                         {
+                                             <input type="text" id="totalPaidAmount" name="PaidAmount" value="@Model.PaidAmount" class="form-control" onchange="paidAmount()" style="border: none"/>
+                                         }
+
+                                     </div>
+                                 </div>
+                                 <div class="row form-group">
+
+                                     @Html.Label("", "Due: ", new {@class = "col-md-4 control-label", style = "color: black;"})
+                                     <div class="col-md-6">
+                                         @if (Model == null)
+                                         {
+                                             <input type="text" id="totalDueAmount" name="DueAmount" value="0" class="form-control" readonly="" style="border: none"/>
+
+                                         }
+                                         else
+                                         {
+                                             <input type="text" id="totalDueAmount" name="DueAmount" value="@Model.DueAmount" class="form-control" readonly="" style="border: none"/>
+
+                                         }
+
+                                     </div>
+
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <input type="submit" class="btn btn-success col-md-offset-8" value="Save" id="buttonSave" style="background-color: #092309; padding: 15px; margin-top: 45px"/>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="col-md-7">
+             <div class="panel" style="background-color: #939494" id="expensePanel">
+                 <div class="panel-heading" style="background-color: #4c493d">
+                     <div class="panel-title" style="color: white; padding: 10px;"><b>List of Items</b>
+                     </div>
+                 </div>
+                 <div class="panel-body" style="margin-left: 10px">
+                     <table class="table table-bordered table-striped table-hover table-responsive" id="expenseTable">
+                         <thead style="color: black; font-weight: bold">
+
+                         <tr>
+                             <th style="color: #250303; font-weight: bold; width: 40px; text-align: center">Sl</th>
+                             <th style="color: #250303; font-weight: bold; width: 200px; text-align: center">Item</th>
+                             <th style="color: #250303; font-weight: bold; width: 120px; text-align: center">Quantity</th>
+                             <th style="color: #250303; font-weight: bold; width: 150px; text-align: center">Amount</th>
+                             <th style="color: #250303; font-weight: bold; width: 160px; text-align: center">Line Total</th>
+                             @if (Model == null)
+                             {
+                                 <th style="color: #250303; font-weight: bold; text-align: center">Action</th>
+                             }
+                         </tr>
+                         </thead>
+                         <tbody id="purchaseItemTable">
+                         @if (Model != null && Model.PurchaseDetails != null && Model.PurchaseDetails.Count > 0)
+                         {
+                             var s = 0;
+                             foreach (var purchase in Model.PurchaseDetails)
+                             {
+                                 <tr>
+                                     <td style="width: 40px; text-align: center">@(++s)</td>
+                                     <td style="width: 200px; text-align: center">@purchase.ItemName</td>
+                                     <td style="width: 120px; text-align: center">@purchase.Quantity</td>
+                                     <td style="width: 150px; text-align: center">@purchase.Amount</td>
+                                     <td style="width: 160px; text-align: center">@purchase.Total</td>
+
+                                 </tr>
+                             }
+                         }
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+         </div>
+     </div>
+     </div>
+ }
+}
+else
+{
+     <div class="row" id="purchaselist">
+         <div class="panel" style="background-color: #939494">
+             <div class="panel-heading" style="background-color: #4c493d">
+                 <div class="panel-title" style="color: white; padding: 10px;">
+                     <b>List of Items</b>
+                     <a class="btn btn-success col-md-offset-9" onclick="loadThisPage()" style="background-color: #042d15">Add New</a>
+                     <a class="btn btn-success" onclick="printPage()" style="background-color: #400002">Print</a>
+                 </div>
+             </div>
+             <div class="panel-body" style="margin-left: 10px">
+                 <table class="table table-bordered table-striped table-hover table-responsive" id="expenseTable">
+                     <thead style="color: black; font-weight: bold">
+                         <tr>
+                             <th style="color: #250303; font-weight: bold; width: 40px; text-align: center">Sl</th>
+                             <th style="color: #250303; font-weight: bold; width: 200px; text-align: center">Item</th>
+                             <th style="color: #250303; font-weight: bold; width: 120px; text-align: center">Quantity</th>
+                             <th style="color: #250303; font-weight: bold; width: 150px; text-align: center">Amount</th>
+                             <th style="color: #250303; font-weight: bold; width: 160px; text-align: center">Line Total</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         @if (Model != null && Model.PurchaseDetails != null && Model.PurchaseDetails.Count > 0)
+                    {
+                        var s = 0;
+                        foreach (var purchase in Model.PurchaseDetails)
+                        {
+                         <tr>
+                             <td style="width: 40px; text-align: center">@(++s)</td>
+                             <td style="width: 200px; text-align: center">@purchase.ItemName</td>
+                             <td style="width: 120px; text-align: center">@purchase.Quantity</td>
+                             <td style="width: 150px; text-align: center">@purchase.Amount</td>
+                             <td style="width: 160px; text-align: center">@purchase.Total</td>
+                         </tr>
+                }
+            }
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+}
+@section scripts
+{
+    <script src="~/Scripts/CuScripts/OperationPurchase/CusOperationPurchase.js"></script>
+}

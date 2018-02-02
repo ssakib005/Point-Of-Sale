@@ -1,0 +1,44 @@
+﻿@model PosSystem.Models.Report.StockReport
+
+
+<div class="panel">
+    
+    <div class="panel-heading" style="background-color: black; color: aliceblue;">
+        <div class="panel-title" style="font-size: 20px"> Search Stock Quantity</div>
+    </div>
+    <div class="panel-body">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-3">
+                <input list="stocks" name="browser" class="form-control" placeholder="Search">
+                <datalist id="stocks">
+                    <option value="">
+                </datalist>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-hover table-responsive" id="stockHeadTable">
+            <thead>
+            <tr>
+                <th style="color: black; text-align: center">Serial</th>
+                <th style="color: black; text-align: center">Item Name</th>
+                <th style="color: black; text-align: center">Category Full Path</th>
+                <th style="color: black; text-align: center">Stock Quantity</th>
+                <th style="color: black; text-align: center">Avg. Price</th>
+            </tr>
+            </thead>
+            <tbody id="stockTable">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+@section scripts
+{
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/CuScripts/ReportStock/StockReports.js"></script>
+}

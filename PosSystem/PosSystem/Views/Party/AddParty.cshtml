@@ -1,0 +1,40 @@
+﻿@model PosSystem.Models.Setup.Party
+@{
+    ViewBag.Title = "Party Setup";
+}
+
+<a onclick="PopupForm('@Url.Action("OpenPartyForm","Party")')" class="btn btn-info" style="margin-bottom: 10px; background-color: #7d0505;border: 1px solid #a59e9e  "><i class="fa fa-plus">Add Party</i></a>
+
+<div class="panel">
+    <div class="panel-heading row" style="background-color: #bfbfbf">
+        <div class="panel-title col-md-6" style="font-weight: bold; font-size: 20Px;color: black">Parties List</div>
+    </div>
+    <div class="panel-body" style="min-height: 40px; background-color: #323538">
+        <table id="partyDataTable" class="table table-striped table-responsive table-hover" style="background-color:burlywood; width: 100%; color: black">
+            <thead>
+                <tr>
+                    <th style="color: black ; margin: 5px;">Sl</th>
+                    <th style="color: black ; margin: 5px;">Name</th>
+                    <th style="color: black ; margin: 5px;">Code</th>
+                    <th style="color: black ; margin: 5px;">Contact</th>
+                    <th style="color: black ; margin: 5px;">Email</th>
+                    <th style="color: black ; margin: 5px;">Address</th>
+                    <th style="color: black ; margin: 5px;">Customar</th>
+                    <th style="color: black ; margin: 5px;">Supplier</th>
+                    <th style="color: black ; margin: 5px;">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+@section scripts
+{
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/CuScripts/Party/CustomParty.js"></script>
+}
